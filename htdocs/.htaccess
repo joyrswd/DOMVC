@@ -1,0 +1,8 @@
+SetEnv QUERY_KEY q
+RewriteEngine On
+#RewriteBase /														
+RewriteCond %{THE_REQUEST} ^.*/index\.php
+RewriteRule ^(.*)index.php$ / [NC,R=301,L]
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI} !-d
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI} !-f
+RewriteRule .+ index.php?QUERY_KEY=$0 [NC,QSA,L,S=2]

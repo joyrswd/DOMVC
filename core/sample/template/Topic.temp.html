@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>:;$topics['title'];: - :;SITE_NAME;:</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <div id="wrapper">
+            <article>
+                <h1>:;$topics['title'];:</h1>
+                <section>
+                    <ol php-foreach="$comments as $comment">
+                        <li>
+                            <p>:;$comment['content'];:</p>
+                            <p><span>:;$datetime->setTimestamp($comment['timestamp'])->format('Y年n月j日 H時i分s秒');:</span> <strong>:;$comment['username'];:</strong></p>
+                        </li>
+                    </ol>
+                    <form name="newcomment" method="post" action="">
+                        <ul php-if="empty($errors) === false" php-foreach="$errors as $message">
+                            <li>:;$message;:</li>
+                        </ul>
+                        <div>
+                            <dl>
+                                <dt>Comment</dt>
+                                <dd><textarea name="comment"></textarea></dd>
+                            </dl>
+                        </div>
+                        <div php-if="empty($_SESSION['username']) === true">
+                            <!-- #include file="login.temp.html" -->
+                        </div>
+                        <p php-else>Will be post as &ldquo;:;$_SESSION['username'];:&rdquo; <input type="submit" name="logout" value="Log out"></p>
+                        <p><input type="submit" name="newcomment" value="Submit"></p>
+                    </form>
+                </section>
+            </article>
+        </div>
+    </body>
+</html>
