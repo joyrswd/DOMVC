@@ -19,7 +19,7 @@ Controller settings
 *****************************/
 
 Controller::$query_key 		= 'q';
-Controller::$directions 	= array('\d*'=>'Index', 'topic/.*'=>'Topic', 'admin'=>'Admin');
+Controller::$directions 	= array('\d*'=>'Index', 'topic/.*'=>'Topic', 'admin'=>'Admin', 'script/.*'=>'Script');
 
 /*****************************
 View settings

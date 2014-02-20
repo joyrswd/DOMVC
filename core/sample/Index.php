@@ -4,6 +4,7 @@ Class Index extends Post
     private $_chunk = 5;
     function __construct()
     {
+        $this->set('post', $_POST, View::NO_CACHE);
         $index = (is_numeric($this->path) === true) ? $this->path - 1 : 0;
         $this->_db = DB::connect();
         $result = $this->_db->query('select * from user')->fetch();

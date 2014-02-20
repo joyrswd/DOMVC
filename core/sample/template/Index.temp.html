@@ -4,47 +4,51 @@
         <title>:;SITE_NAME;:</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+        <script src=":;$this->root;:script/index" async="async"></script>
     </head>
     <body>
         <div id="wrapper">
-            <article>
-                <section>
-                    <p php-if="empty($topics) === true">There is no topic.</p>
-                    <div php-else>
-                        <ul php-foreach="$topics as $topic">
-                            <li>
-                                <p><a href=":;$this->root.'topic/'.$topic['id'];:">:;$topic['title'];: (:;$topic['total'];:)</a><strong>:;$topic['username'];:</strong></p>
-                                <span>:;$datetime->setTimestamp($topic['since_ts'])->format('Y年n月j日');:</span>
-                                <span>:;$datetime->setTimestamp($topic['lastupdate_ts'])->format('Y年n月j日');:</span>
-                            </li>
-                        </ul>
-                        <ul php-if="empty($topic_limit) === false " php-for="$i=1; $i <= $topic_limit + 1; $i++">
-                            <li>
-                                <strong php-if="$i === $index + 1">:;$i;:</strong>
-                                <a href=":;$this->root.$i;:" php-else>:;$i;:</s>
-                            </li>
-                        </ul>
+            <p php-if="empty($topics) === true">There is no topic.</p>
+            <section php-else>
+                <ul php-foreach="$topics as $topic">
+                    <li>
+                        <p><a href=":;$this->root.'topic/'.$topic['id'];:">:;$topic['title'];: (:;$topic['total'];:)</a><strong>:;$topic['username'];:</strong></p>
+                        <span>:;$datetime->setTimestamp($topic['since_ts'])->format('Y年n月j日');:</span>
+                        <span>:;$datetime->setTimestamp($topic['lastupdate_ts'])->format('Y年n月j日');:</span>
+                    </li>
+                </ul>
+            </section>
+            <nav php-if="empty($topic_limit) === false">
+                <ul php-for="$i=1; $i < $topic_limit + 1; $i++" id="paging">
+                    <li>
+                        <strong php-if="$i === $index + 1">:;$i;:</strong>
+                        <a href=":;$this->root.$i;:" php-else>:;$i;:</s>
+                    </li>
+                </ul>
+            </nav>
+            <section>
+                <form name="newtopic" method="post" action="">
+                    <ul php-if="empty($errors) === false" php-foreach="$errors as $message">
+                        <li>:;$message;:</li>
+                    </ul>
+                    <div>
+                        <dl>
+                            <dt>Topic</dt>
+                            <dd><input type="text" name="topic" value=""></dd>
+                            <dt>Comment</dt>
+                            <dd><textarea name="comment"></textarea></dd>
+                        </dl>
                     </div>
-                    <form name="newtopic" method="post" action="">
-                        <ul php-if="empty($errors) === false" php-foreach="$errors as $message">
-                            <li>:;$message;:</li>
-                        </ul>
-                        <div>
-                            <dl>
-                                <dt>Topic</dt>
-                                <dd><input type="text" name="topic" value=""></dd>
-                                <dt>Comment</dt>
-                                <dd><textarea name="comment"></textarea></dd>
-                            </dl>
-                        </div>
-                        <div php-if="empty($_SESSION['username']) === true">
-                            <!-- #include file="login.temp.html" -->
-                        </div>
-                        <p php-else>Will be post as &ldquo;:;$_SESSION['username'];:&rdquo; <input type="submit" name="logout" value="Log out"></p>
-                        <p><input type="submit" name="newtopic" value="Submit"></p>
-                    </form>
-                </section>
-            </article>
+                    <div php-if="empty($_SESSION['username']) === true">
+                        <!-- #include file="login.temp.html" -->
+                    </div>
+                    <p php-else>Will be post as &ldquo;:;$_SESSION['username'];:&rdquo;</p>
+                    <p><input type="submit" name="newtopic" value="Submit"></p>
+                </form>
+                <form method="post" action="">
+                    <input type="submit" name="logout" value="Log out">
+                </form>
+            </section>
         </div>
     </body>
 </html>

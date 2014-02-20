@@ -10,6 +10,8 @@
             <article>
                 <h1>Welcome! You are the first visitor!</h1>
                 <p>You can get an administrator account. Please set the password.<br>
+            </article>
+            <section>
                 <form name="admin" action="" method="post">
                     <ul php-if="empty($errors) === false" php-foreach="$errors as $message">
                         <li>:;$message;:</li>
@@ -17,7 +19,7 @@
                     <!-- #include file="login.temp.html" -->
                     <p><input type="submit" name="admin" value="Submit"></p>
                 </form>
-            </article>
+            </section>
         </div>
     </body>
 </html>
