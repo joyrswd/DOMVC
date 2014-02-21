@@ -31,3 +31,23 @@ function removeEvent(obj, type, func)
         obj.detachEvent('on' + type, func);
     }
 }
+
+function repeatMethod(interval, func)
+{
+    var obj={id:null, interval:interval, step:0};
+    obj.id = window.setInterval(function(){
+        if (func.call(obj) !== true) {
+           window.clearInterval(obj.id);
+        }
+    }, interval);
+}
+
+function delayMethod(interval, func)
+{
+    var obj={id:null, interval:interval, step:0};
+    obj.id = window.setTimeout(function(){
+        if (func.call(obj) !== true) {
+           window.clearTimeout(obj.id);
+        }
+    }, interval);
+}

@@ -4,17 +4,20 @@
         <title>:;SITE_NAME;:</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <script src=":;$this->root;:script/index" async="async"></script>
+        <link rel="stylesheet" href=":;$this->root;:style">
+        <script src=":;$this->root;:script" async="async"></script>
     </head>
     <body>
         <div id="wrapper">
+            <form method="post" action="" php-if="isset($_SESSION['username']) === true">
+                <input type="submit" name="logout" value="Log out">
+            </form>
+            <h1>:;SITE_NAME;:</h1>
             <p php-if="empty($topics) === true">There is no topic.</p>
             <section php-else>
                 <ul php-foreach="$topics as $topic">
                     <li>
-                        <p><a href=":;$this->root.'topic/'.$topic['id'];:">:;$topic['title'];: (:;$topic['total'];:)</a><strong>:;$topic['username'];:</strong></p>
-                        <span>:;$datetime->setTimestamp($topic['since_ts'])->format('Y年n月j日');:</span>
-                        <span>:;$datetime->setTimestamp($topic['lastupdate_ts'])->format('Y年n月j日');:</span>
+                        <p><a href=":;$this->root.'topic/'.$topic['id'];:">:;$topic['title'];: (:;$topic['total'];:)</a></p>
                     </li>
                 </ul>
             </section>
@@ -45,10 +48,10 @@
                     <p php-else>Will be post as &ldquo;:;$_SESSION['username'];:&rdquo;</p>
                     <p><input type="submit" name="newtopic" value="Submit"></p>
                 </form>
-                <form method="post" action="">
-                    <input type="submit" name="logout" value="Log out">
-                </form>
             </section>
+            <footer>
+                <p><a href=":;$this->root;:">HOME</a></p>
+            </footer>
         </div>
     </body>
 </html>

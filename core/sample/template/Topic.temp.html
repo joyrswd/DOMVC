@@ -4,22 +4,26 @@
         <title>:;$topics['title'];: - :;SITE_NAME;:</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <script src=":;$this->root;:script/topic" async="async"></script>        
+        <link rel="stylesheet" href=":;$this->root;:style">
+        <script src=":;$this->root;:script" async="async"></script>
     </head>
     <body>
         <div id="wrapper">
+            <form method="post" action="" php-if="isset($_SESSION['username']) === true">
+                <input type="submit" name="logout" value="Log out">
+            </form>
+            <h1>:;$topics['title'];:</h1>
             <article>
-                <h1>:;$topics['title'];:</h1>
                 <ol start=":;($index*$chunk)+1;:" php-foreach="$comments as $comment">
                     <li>
+                        <strong>:;$comment['username'];:</strong>
                         <p>:;=nl2br(htmlspecialchars($comment['content']));:</p>
-                        <p><span>:;$datetime->setTimestamp($comment['timestamp'])->format('Y年n月j日 H時i分s秒');:</span> <strong>:;$comment['username'];:</strong></p>
+                        <small>:;$datetime->setTimestamp($comment['timestamp'])->format('Y-m-d H:i:s');:</small>
                     </li>
                 </ol>
             </article>
             <nav id="sitepath">
-                <p><a href=":;$this->root;:">Home</a> <a href=":;$this->root.'topic/'.$topic_id.'/';:">:;$topics['title'];:</a></p>
-                <ul php-if="empty($comment_limit) === false " php-for="$i=1; $i < $comment_limit + 1; $i++" id="paging">
+                <ul php-if="empty($comment_limit) === false  && $comment_limit > 1" php-for="$i=1; $i < $comment_limit + 1; $i++" id="paging">
                     <li>
                         <strong php-if="$i === $index + 1">:;$i;:</strong>
                         <a href=":;$this->root.'topic/'.$topic_id.'/'.$i;:" php-else>:;$i;:</s>
@@ -43,10 +47,10 @@
                     <p php-else>Will be post as &ldquo;:;$_SESSION['username'];:&rdquo;</p>
                     <p><input type="submit" name="newcomment" value="Submit"></p>
                 </form>
-                <form method="post" action="">
-                    <input type="submit" name="logout" value="Log out">
-                </form>
             </section>
+            <footer>
+                <p><a href=":;$this->root;:">HOME</a></p>
+            </footer>
         </div>
     </body>
 </html>

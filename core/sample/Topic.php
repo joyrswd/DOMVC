@@ -1,7 +1,7 @@
 <?php
 Class Topic extends Post
 {
-    private $_chunk = 2;
+    private $_chunk = 10;
     function __construct()
     {
         $dirs = explode('/', $this->path);
