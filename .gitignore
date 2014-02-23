@@ -219,3 +219,4 @@ pip-log.txt
 /core/sample/sqlite3.dll
 /core/sample/bbs.sql
 /core/sample/cache/
+/core/sample/template/Manage.temp.html

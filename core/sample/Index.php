@@ -11,6 +11,11 @@ Class Index extends Post
         if (empty($result) === true) {
             Controller::jumpto($this->root.'admin');
         }
+        /*
+        if (isset($this->requests['manage']) === true && isset($_SESSION['level']) === true && $_SESSION['level'] === 'admin') {
+            Controller::jumpto($this->root.'manage');
+        }
+         */
         if (isset($this->requests['logout']) === true && isset($_SESSION['username'])) {
             $this->logout();
         }

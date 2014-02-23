@@ -17,6 +17,7 @@ body{
     background-color: #ffffff;
     border:solid 1px #f0f0f0;
     padding:0.2em 1em;
+    box-sizing: border-box;
     position:relative;
 }
 
@@ -110,12 +111,14 @@ h1
 #wrapper form>div:first-child
 {
     width:60%;
+    padding:0;
     float:left;
 }
 
 #wrapper form>div textarea
 {
     width:100%;
+    margin:0;
     height:5em;
 }
 
@@ -127,10 +130,24 @@ h1
 #wrapper form>div:nth-of-type(2)
 {
     width:35%;
-    margin-left:5%;
+    margin-left: 5%;
     overflow:hidden;
 }
 
+@media screen and (max-width: 500px) {
+    
+    #wrapper form>div:first-child
+    {
+        width:100%;
+        float:none;
+    }
+    
+    #wrapper form>div:nth-of-type(2)
+    {
+        width:100%;
+        margin:0;
+    }
+}
 #wrapper form>div:nth-of-type(2) dl
 {
     padding-top:1em;
