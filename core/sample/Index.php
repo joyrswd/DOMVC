@@ -30,7 +30,7 @@ Class Index extends Post
             $this->set('topic_limit', $break, View::NO_CACHE);
             $temp = array_chunk($topics, $this->_chunk);
             $this->set('topics', $temp[$index], View::NO_CACHE);
-        } elseif(isset($_SESSION['username']) === true) {
+        } elseif(isset($_SESSION['username']) === false) {
             View::$http_status = 404;
             exit;
         }
