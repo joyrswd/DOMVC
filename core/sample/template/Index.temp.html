@@ -30,7 +30,7 @@
                 </ul>
             </nav>
             <section>
-                <form name="newtopic" method="post" action="">
+                <form name="newtopic" method="post" action=":;$this->root;:">
                     <ul php-if="empty($errors) === false" php-foreach="$errors as $message">
                         <li>:;$message;:</li>
                     </ul>
