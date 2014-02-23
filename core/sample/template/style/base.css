@@ -70,6 +70,7 @@ h1
     text-align:center;
     line-height:2em;
     overflow:hidden;
+    padding-bottom: 1em;
 }
 
 #wrapper>nav>a
