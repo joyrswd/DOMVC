@@ -1,0 +1,235 @@
+@import "reset";
+@import "compass/css3/images";
+
+$max-width:     1000px;
+$breakpoint:    $max-width/2;
+
+@mixin arrow($direction, $width, $color) {
+    display:inline-block;
+    border: solid $width/2 transparent;
+    @if $direction == top {
+        border-bottom: solid $width $color;
+        border-top: none 0 transparent;
+    } @else if $direction == bottom {
+        border-top: solid $width $color;
+        border-bottom: none 0 transparent;
+    } @else if $direction == left {
+        border-right: solid $width $color;
+        border-left: none 0 transparent;
+    } @else if $direction == right {
+        border-left: solid $width $color;
+        border-right: none 0 transparent;
+    }
+} 
+
+html{
+    height:100%;
+}
+body{
+    font-family: "メイリオ","Segoe UI","proxima-nova","proxima-nova-1","proxima-nova-2","Proxima Nova",Helvetica,Arial,sans-serif;
+    @include background(linear-gradient(#ffffff,#eeeeee));
+    min-height:100%;
+}
+
+h1
+{
+    border-top: solid 5px #333333;
+    padding-top:0.5em;
+}
+
+#wrapper
+{
+    max-width:$max-width;
+    margin:0 auto;
+    background-color: #ffffff;
+    border:solid 1px #f0f0f0;
+    padding:0.2em 1em;
+    box-sizing: border-box;
+    position:relative;
+    &>* ul
+    {
+        width:100%;
+        padding: 1em 0;
+    }
+    &>* li
+    {
+        margin:1em 0;
+        list-style-type: none;
+        a
+        {
+            display:block;
+            line-height:1.2em;
+            padding:0.5em 1em;
+            background-color:rgba(255,255,255,0.5);
+            border:solid 2px #f0f0f0;
+            border-radius: 0.5em;
+            overflow:hidden;
+            &:hover
+            {
+                background-color:#eeeeee;
+            }
+            &:after
+            {
+                content:"";
+                margin-left:1em;
+                float:right;
+                @include arrow(right, 1em, #dddddd);
+            }
+        }
+    }
+    &>nav
+    {
+        text-align:center;
+        line-height:2em;
+        overflow:hidden;
+        padding-bottom: 1em;
+        a
+        {
+            display:inline-block;
+            width:3em;
+            border:solid 1px #dddddd;
+            @include background(linear-gradient(#ffffff,#eeeeee));
+        }
+        select
+        {
+            height:2em;
+            float:left;
+            margin-right: -100%;
+        }
+    }
+    
+    form>div
+    {
+        width:50%;
+        float:left;
+        textarea
+        {
+            width:100%;
+            margin:0;
+            height:5em;
+        }
+        &:first-child
+        {
+            width:60%;
+            padding:0;
+            float:left;
+            input
+            {
+                width:100%;
+            }
+        }
+    }
+
+    form>ul>li
+    {
+        color:#ff9900;
+        margin-left:2em;
+        font-size:80%;
+        font-weight:bold;
+        list-style-type: disc;
+    }
+    
+    form>div:nth-of-type(2)
+    {
+        width:35%;
+        margin-left: 5%;
+        overflow:hidden;
+        dl
+        {
+            padding-top:1em;
+            dt
+            {
+                float:left;
+                width:6em;
+            }
+        }
+        p
+        {
+            font-size:80%;
+        }        
+    }
+    form>p
+    {
+        clear:both;
+        text-align:center;
+        padding-top:1em;
+        input
+        {
+            font-size:125%;
+            height:1.5em;
+            width:10em;
+        }        
+    }
+    &>form
+    {
+        float:right;
+        padding-top:0.5em;
+    }    
+    &>article
+    {
+        clear:both;
+        ol
+        {
+            overflow: hidden;
+            padding: 1em 0;
+            li
+            {
+                border-bottom: solid 1px #cccccc;
+                padding:0.5em 0;
+                margin:0;
+                list-style-type: decimal;
+                list-style-position: inside;
+                overflow:hidden;
+            }
+            li:before
+            {
+                content: "";
+                display: inline-block;
+            }
+            strong,
+            small
+            {
+                font-size: 80%;
+                float:right;
+                display:block;
+                padding:0.2em 0;
+            }
+            p
+            {
+                display:block;
+                clear:both;
+                line-height:1.2em;
+            }
+        }
+    }
+    footer>p>a
+    {
+        display:block;
+        background-color:#333333;
+        color:#ffffff;
+        text-align:center;
+        line-height:200%;
+        border-radius: 0.5em;
+        margin-top:1em;
+        &:hover
+        {
+            background-color: #cccccc;
+        }
+    }
+
+}
+
+@media screen and (max-width: $breakpoint) {
+    
+    #wrapper form>div:first-child
+    {
+        width:100%;
+        float:none;
+    }
+    
+    #wrapper form>div:nth-of-type(2)
+    {
+        width:100%;
+        margin:0;
+    }    
+}
