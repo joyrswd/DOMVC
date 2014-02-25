@@ -1,5 +1,6 @@
 @import "reset";
 @import "compass/css3/images";
+@import "compass/css3/box";
 
 $max-width:     1000px;
 $breakpoint:    $max-width/2;
@@ -202,6 +203,7 @@ h1
             }
         }
     }
+    
     footer>p>a
     {
         display:block;
@@ -217,16 +219,33 @@ h1
         }
     }
 
+    ul#users
+    {
+        form
+        {
+            float: right;
+            * {
+                font-size: 80%;
+            }
+        }
+        strong
+        {
+            overflow: hidden;
+            display: block;
+        }
+    }
 }
 
+
+
 @media screen and (max-width: $breakpoint) {
-    
+
     #wrapper form>div:first-child
     {
         width:100%;
         float:none;
     }
-    
+
     #wrapper form>div:nth-of-type(2)
     {
         width:100%;

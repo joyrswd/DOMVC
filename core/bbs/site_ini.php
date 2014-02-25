@@ -22,7 +22,7 @@ Controller::$query_key 		= 'q';
 Controller::$directions 	= array('\d*'=>'Index',
     'topic/.*'=>'Topic',
     'admin'=>'Admin',
-    //'manage'=>'Manage',
+    'manage'=>'Manage',
     'script'=>'Script',
     'style'=>'Style');
 

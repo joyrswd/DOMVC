@@ -179,7 +179,6 @@ abstract class DOMprocessor
 	protected function form()
 	{
 		$forms = $this->_html->getElementsByTagName('form');
-		
 		foreach ($forms as $form) {
 			$formname = $form->getAttribute('name');
 			$method = strtoupper($form->getAttribute('method'));
@@ -312,7 +311,7 @@ class View extends DOMprocessor
 	public function __construct($template_name='', $path='', $class_path = '')
 	{
 		$this->_timestamp = microtime(true);
-		
+
 		parent::__construct(self::$php_prefix, self::$php_opener, self::$php_closer);
 		
 		$this->queryString = $path;
@@ -377,7 +376,6 @@ class View extends DOMprocessor
 			header('Expires: '.gmdate("D, d M Y H:i:s",strtotime('+ 1 month')).' GMT');
 			header('Last-Modified: '.gmdate("D, d M Y H:i:s",$this->_lastupdate).' GMT');
 		}
-
 		header(' ', true, self::$http_status);
 		header('Content-type: '.$this->content_type.'; charset='.$this->encode);
 		print($output);	

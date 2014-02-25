@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>:;SITE_NAME;:</title>
+        <title>:;$topics['title'];: - :;SITE_NAME;:</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href=":;$this->root;:style">
         <script src=":;$this->root;:script" async="async"></script>
     </head>
     <body>
         <div id="wrapper">
             <form method="post" action="" php-if="isset($_SESSION['username']) === true">
-                <!--<input type="submit" name="manage" value="Manage users" php-if="$_SESSION['level'] == 'admin'">-->
                 <input type="submit" name="logout" value="Log out">
             </form>
-            <h1>:;SITE_NAME;:</h1>
-            <p php-if="empty($topics) === true">There is no topic.</p>
-            <section php-else>
-                <ul php-foreach="$topics as $topic">
+            <form method="post" action=":;$this->root;:manage"  php-if="empty($_SESSION['level']) === false && $_SESSION['level'] == 'admin'">
+                <input type="submit" name="manage" value="Manage users">
+            </form>
+            <h1>:;$topics['title'];:</h1>
+            <article>
+                <ol start=":;($index*$chunk)+1;:" php-foreach="$comments as $comment">
                     <li>
-                        <p><a href=":;$this->root.'topic/'.$topic['id'];:">:;$topic['title'];: (:;$topic['total'];:)</a></p>
+                        <strong>:;$comment['username'];:</strong>
+                        <p>:;=nl2br(htmlspecialchars($comment['content']));:</p>
+                        <small>:;$datetime->setTimestamp($comment['timestamp'])->format('Y-m-d H:i:s');:</small>
                     </li>
-                </ul>
-            </section>
-            <nav php-if="empty($topic_limit) === false">
-                <ul php-for="$i=1; $i < $topic_limit + 1; $i++" id="paging">
+                </ol>
+            </article>
+            <nav id="sitepath">
+                <ul php-if="empty($comment_limit) === false  && $comment_limit > 1" php-for="$i=1; $i < $comment_limit + 1; $i++" id="paging">
                     <li>
                         <strong php-if="$i === $index + 1">:;$i;:</strong>
-                        <a href=":;$this->root.$i;:" php-else>:;$i;:</s>
+                        <a href=":;$this->root.'topic/'.$topic_id.'/'.$i;:" php-else>:;$i;:</s>
                     </li>
                 </ul>
             </nav>
             <section>
-                <form name="newtopic" method="post" action=":;$this->root;:">
+                <form name="newcomment" method="post" action="">
                     <ul php-if="empty($errors) === false" php-foreach="$errors as $message">
                         <li>:;$message;:</li>
                     </ul>
                     <div>
                         <dl>
-                            <dt>Topic</dt>
-                            <dd><input type="text" name="topic" value=""></dd>
                             <dt>Comment</dt>
                             <dd><textarea name="comment"></textarea></dd>
                         </dl>
@@ -47,7 +48,7 @@
                         <!-- #include file="login.temp.html" -->
                     </div>
                     <p php-else>Will be post as &ldquo;:;$_SESSION['username'];:&rdquo;</p>
-                    <p><input type="submit" name="newtopic" value="Submit"></p>
+                    <p><input type="submit" name="newcomment" value="Submit"></p>
                 </form>
             </section>
             <footer>

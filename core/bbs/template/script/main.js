@@ -46,11 +46,14 @@ var current_page = window.location.href;
             e.preventDefault();
             var ii=0,ee,data={};
             while (ee = e.target.elements[ii++]) {
-                data[ee.name] = ee.value;
+                if (ee.type != 'checkbox' || ee.checked) {
+                    data[ee.name] = ee.value;
+                }
             }
             AJAX.post(e.target.action, data, function(doc){
-                document.body.innerHTML = doc.getElementsByTagName('body')[0].innerHTML;
                 pages = {};
+                current_page = e.target.action;
+                document.body.innerHTML = doc.getElementsByTagName('body')[0].innerHTML;
                 setEvents();
                 history.pushState('', '', e.target.action);
             });

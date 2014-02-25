@@ -26,6 +26,7 @@ Class Post extends Model
     protected function logout()
     {
        unset($_SESSION['username']);
+       unset($_SESSION['level']);
        Controller::jumpto($this->path);
     }
 

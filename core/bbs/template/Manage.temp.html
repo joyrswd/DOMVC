@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manage Users - :;SITE_NAME;:</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href=":;$this->root;:style">
+        <script src=":;$this->root;:script" async="async"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <form method="post" action="" php-if="isset($_SESSION['username']) === true">
+                <input type="submit" name="logout" value="Log out">
+            </form>
+            <h1>Manage Users</h1>
+            <article>
+                <ul id="users" php-foreach="$users as $user">
+                    <li>
+                        <form name="u_:;$user['username'];:" action="" method="post">
+                            <label for="admin"><input type="checkbox" name="admin" value="1" php-if="$user['level'] === 'admin'" checked="checked"><input type="checkbox" name="admin" value="1" php-else>Admin</label>
+                            <label for="disable"><input type="checkbox" name="disable">Disabled</label>
+                            <small>:;$user['lastupdate'];:</small>
+                            <button type="submit" name="update" value=":;$user['username'];:">Update</button>
+                            <input type="hidden" name="u_:;$user['username'];:" value="1">
+                        </form>
+                        <strong>:;$user['username'];:</strong>
+                    </li>
+                </ul>
+            </article>
+            <footer>
+                <p><a href=":;$this->root;:">HOME</a></p>
+            </footer>
+        </div>
+    </body>
+</html>
