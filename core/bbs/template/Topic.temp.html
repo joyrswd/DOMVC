@@ -18,7 +18,7 @@
             <h1>:;$topics['title'];:</h1>
             <article>
                 <ol start=":;($index*$chunk)+1;:" php-foreach="$comments as $comment">
-                    <li>
+                    <li id="c:;$comment['id'];:">
                         <strong>:;$comment['username'];:</strong>
                         <p>:;=nl2br(htmlspecialchars($comment['content']));:</p>
                         <small>:;$datetime->setTimestamp($comment['timestamp'])->format('Y-m-d H:i:s');:</small>
@@ -44,7 +44,7 @@
                             <dd><textarea name="comment"></textarea></dd>
                         </dl>
                     </div>
-                    <div php-if="empty($_SESSION['username']) === true">
+                    <div php-if="empty($_SESSION['username']) === true" class="login">
                         <!-- #include file="login.temp.html" -->
                     </div>
                     <p php-else>Will be post as &ldquo;:;$_SESSION['username'];:&rdquo;</p>

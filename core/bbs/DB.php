@@ -51,7 +51,7 @@ Class DB
     static private function createTopicTable($db)
     {
         $sql = 'create table topic('
-                . 'id integer primary key autoincrement, '
+                . 'id integer primary key, '
                 . 'username text, '
                 . 'title text, '
                 . 'status integer default 1, '
@@ -74,9 +74,9 @@ Class DB
     static private function createCommentTable($db)
     {
         $sql = 'create table comment('
-                . 'id integer primary key, '
-                . 'content text, '
                 . 'topic_id integer, '
+                . 'id integer default 0, '
+                . 'content text, '
                 . 'username text, '
                 . 'status integer default 1, '
                 . 'since timestamp default current_timestamp, '
@@ -89,8 +89,13 @@ Class DB
         $db->query($sql);
         $sql = 'create trigger comment_topic_lastupdate after insert on comment '
                 . 'begin '
+                . 'update comment set id = (select id from comment where topic_id = new.topic_id order by id desc limit 1)+1 '
+                . 'where id = 0; '
                 . 'update topic set lastupdate = datetime("now", "localtime") '
-                . 'where id = new.topic_id; end;';
+                . 'where id = new.topic_id; '
+                . 'end;';
+        $db->query($sql);
+        $sql = 'create unique index comment_id on comment(topic_id, id)';
         $db->query($sql);
         $sql = 'create index comment_topic_id on comment(topic_id)';
         $db->query($sql);

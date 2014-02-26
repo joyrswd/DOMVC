@@ -18,7 +18,7 @@
                     <li>
                         <form name="u_:;$user['username'];:" action="" method="post">
                             <label for="admin"><input type="checkbox" name="admin" value="1" php-if="$user['level'] === 'admin'" checked="checked"><input type="checkbox" name="admin" value="1" php-else>Admin</label>
-                            <label for="disable"><input type="checkbox" name="disable">Disabled</label>
+                            <label for="disable"><input type="checkbox" name="disable" value="1" php-if="$user['status'] == 0" checked="checked"><input type="checkbox" name="disable" value="1" php-else>Disabled</label>
                             <small>:;$user['lastupdate'];:</small>
                             <button type="submit" name="update" value=":;$user['username'];:">Update</button>
                             <input type="hidden" name="u_:;$user['username'];:" value="1">

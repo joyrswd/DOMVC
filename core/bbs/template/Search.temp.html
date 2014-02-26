@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>:;SITE_NAME;:</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <link rel="stylesheet" href=":;$this->root;:style">
+        <script src=":;$this->root;:script" async="async"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <form method="post" action="" php-if="isset($_SESSION['username']) === true">
+                <input type="submit" name="logout" value="Log out">
+            </form>
+            <h1>:;SITE_NAME;: search for &ldquo;:;$keyword;:&rdquo;</h1>
+            <p php-if="empty($results) === true" class="notice">There is no result.</p>
+            <section php-else>
+                <form name="search" action=":;$this->root;:search/" method="get">
+                    <p><input type="search" name="keyword" value=":;$keyword;:"><button type="submit" name="search" value="find">Find</button></p>
+                </form>
+                <ul php-foreach="$results as $result">
+                    <li>
+                        <p><a href=":;$this->root.'topic/'.$result['topic_id'];:">:;$result['title'];:</a></p>
+                        <blockquote php-if="empty($result['comments']) === false" php-foreach="explode('<>', $result['comments']) as $i=>$comment">
+                            <script type="php">
+                                if ($i === 5) break;
+                                $sep = strpos($comment, ' ');
+                                $comment_id = substr($comment, 0, $sep);
+                                $line = substr($comment, $sep+1);
+                                if (preg_match('/(\w{0,10}?(?='.$keyword.'))('.$keyword.')(\w{0,10})/uis', $line, $matches) === 0) {
+                                    $line = false;
+                                } else {
+                                    $line = implode('<strong>'.$keyword.'</strong>', explode($keyword, $matches[0]));
+                                    $url = $this->root.'topic/'.$result['topic_id'];
+                                    if ($comment_id > LIST_ITEM_LIMIT) {
+                                        $url .= '/'.ceil($comment_id / LIST_ITEM_LIMIT).'#c'.$comment_id;
+                                    } else {
+                                        $url .= '#c'.$comment_id;
+                                    }
+                                }
+                            </script>
+                            <q php-if='$line !== false'><a href=":;$url;:">:;=($line);:</a></q>
+                        </blockquote>
+                    </li>
+                </ul>
+            </section>
+            <nav php-if="empty($result_limit) === false && $result_limit > 1">
+                <ul php-for="$i=1; $i < $result_limit + 1; $i++" id="paging">
+                    <li>
+                        <strong php-if="$i === $index + 1">:;$i;:</strong>
+                        <a href=":;$this->root.$i;:" php-else>:;$i;:</s>
+                    </li>
+                </ul>
+            </nav>
+            <footer>
+                <p><a href=":;$this->root;:">HOME</a></p>
+            </footer>
+        </div>
+    </body>
+</html>

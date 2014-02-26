@@ -1,0 +1,40 @@
+a:2:{s:5:"files";a:5:{i:0;s:35:"D:\xampp\htdocs\DOMVC\core\View.php";i:1;s:41:"D:\xampp\htdocs\DOMVC\core\bbs\Search.php";i:2;s:39:"D:\xampp\htdocs\DOMVC\core\bbs\Post.php";i:3;s:36:"D:\xampp\htdocs\DOMVC\core\Model.php";i:4;s:56:"D:\xampp\htdocs\DOMVC\core\bbs\template\Search.temp.html";}s:8:"template";s:3893:"<!DOCTYPE html>
+<html><head><title><?PHP echo htmlspecialchars(SITE_NAME, ENT_COMPAT,"UTF-8", false);?></title><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><link rel="stylesheet" href="<?PHP echo htmlspecialchars($this->root, ENT_COMPAT,"UTF-8", false);?>style"><script src="<?PHP echo htmlspecialchars($this->root, ENT_COMPAT,"UTF-8", false);?>script" async="async"></script></head><body>
+        <div id="wrapper">
+            <?PHP if(isset($_SESSION['username']) === true){?><form method="post" action="">
+                <input type="submit" name="logout" value="Log out"></form><?PHP }?>
+            <h1><?PHP echo htmlspecialchars(SITE_NAME, ENT_COMPAT,"UTF-8", false);?> search for “<?PHP echo htmlspecialchars($keyword, ENT_COMPAT,"UTF-8", false);?>”</h1>
+            <?PHP if(empty($results) === true){?><p class="notice">There is no result.</p><?PHP }else{?>
+            <section><form name="search" action="<?PHP echo htmlspecialchars($this->root, ENT_COMPAT,"UTF-8", false);?>search/" method="get">
+                    <p><input type="search" name="keyword" value="<?PHP echo htmlspecialchars($keyword, ENT_COMPAT,"UTF-8", false);?>"><button type="submit" name="search" value="find">Find</button></p>
+                </form>
+                <ul><?PHP foreach($results as $result){?><li>
+                        <p><a href="<?PHP echo htmlspecialchars($this->root.'topic/'.$result['topic_id'], ENT_COMPAT,"UTF-8", false);?>"><?PHP echo htmlspecialchars($result['title'], ENT_COMPAT,"UTF-8", false);?></a></p>
+                        <?PHP if(empty($result['comments']) === false){?><blockquote><?PHP foreach(explode('<>', $result['comments']) as $i=>$comment){?>
+                            <?PHP 
+                                if ($i === 5) break;
+                                $sep = strpos($comment, ' ');
+                                $comment_id = substr($comment, 0, $sep);
+                                $line = substr($comment, $sep+1);
+                                if (preg_match('/(\w{0,10}?(?='.$keyword.'))('.$keyword.')(\w{0,10})/uis', $line, $matches) === 0) {
+                                    $line = false;
+                                } else {
+                                    $line = implode('<strong>'.$keyword.'</strong>', explode($keyword, $matches[0]));
+                                    $url = $this->root.'topic/'.$result['topic_id'];
+                                    if ($comment_id > LIST_ITEM_LIMIT) {
+                                        $url .= '/'.ceil($comment_id / LIST_ITEM_LIMIT).'#c'.$comment_id;
+                                    } else {
+                                        $url .= '#c'.$comment_id;
+                                    }
+                                }
+                             ?><?PHP if($line !== false){?><q><a href="<?PHP echo htmlspecialchars($url, ENT_COMPAT,"UTF-8", false);?>"><?PHP echo (($line));?></a></q><?PHP }?>
+                        <?PHP }?></blockquote><?PHP }?>
+                    </li>
+                <?PHP }?></ul></section><?PHP }?><?PHP if(empty($result_limit) === false && $result_limit > 1){?><nav><ul id="paging"><?PHP for($i=1; $i < $result_limit + 1; $i++){?><li>
+                        <?PHP if($i === $index + 1){?><strong><?PHP echo htmlspecialchars($i, ENT_COMPAT,"UTF-8", false);?></strong><?PHP }else{?>
+                        <a href="<?PHP echo htmlspecialchars($this->root.$i, ENT_COMPAT,"UTF-8", false);?>"><?PHP echo htmlspecialchars($i, ENT_COMPAT,"UTF-8", false);?>
+                    </a><?PHP }?></li>
+                <?PHP }?></ul></nav><?PHP }?><footer><p><a href="<?PHP echo htmlspecialchars($this->root, ENT_COMPAT,"UTF-8", false);?>">HOME</a></p>
+            </footer></div>
+    </body></html>
+";}

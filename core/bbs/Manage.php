@@ -7,14 +7,13 @@ Class Manage extends Post
             Controller::jumpto('');
         }
         $this->_db = DB::connect();
-        
+
         if (empty($this->requests['update']) === false) {
             $sth = $this->_db->prepare('update user set level = :level, status = :status where username = :username');
             $binder = array(
                 'level'=> (empty($this->requests['admin'])) ? 'user': 'admin',
-                'status'=> (empty($this->requests['disable'])) ? 0: 1,
-                'username'=>$this->requests['update']
-                
+                'status'=> (empty($this->requests['disable'])) ? 1: 0,
+                'username'=>$this->requests['update']                
             );
             $sth->execute($binder);
         }
@@ -22,8 +21,7 @@ Class Manage extends Post
             $this->logout();
             Controller::jumpto('');
         }
-        
-        
+
         $sth = $this->_db->prepare('select * from user where username != ?');
         $sth->execute(array($_SESSION['username']));
         $users = $sth->fetchAll();

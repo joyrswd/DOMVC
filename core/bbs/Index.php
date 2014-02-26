@@ -4,7 +4,6 @@ Class Index extends Post
     private $_chunk = 5;
     function __construct()
     {
-        $this->set('post', $_POST, View::NO_CACHE);
         $index = (is_numeric($this->path) === true) ? $this->path - 1 : 0;
         $this->_db = DB::connect();
         $result = $this->_db->query('select * from user')->fetch();
@@ -23,7 +22,7 @@ Class Index extends Post
             $this->login($this->requests['username'], $this->requests['password']);
         }
         if (isset($this->requests['newtopic']) === true && isset($_SESSION['username']) === true) {
-            $this->createTopic($this->requests['topic'], $this->requests['comment'], $_SESSION['username']);
+            $this->addTopic($this->requests['topic'], $this->requests['comment'], $_SESSION['username']);
         }
         $this->set('errors', $this->_errors, View::NO_CACHE);
 

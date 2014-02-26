@@ -1,4 +1,4 @@
-a:2:{s:5:"files";a:6:{i:0;s:35:"D:\xampp\htdocs\DOMVC\core\View.php";i:1;s:40:"D:\xampp\htdocs\DOMVC\core\bbs\Topic.php";i:2;s:39:"D:\xampp\htdocs\DOMVC\core\bbs\Post.php";i:3;s:36:"D:\xampp\htdocs\DOMVC\core\Model.php";i:4;s:55:"D:\xampp\htdocs\DOMVC\core\bbs\template\Topic.temp.html";i:5;s:55:"D:\xampp\htdocs\DOMVC\core\bbs\template\login.temp.html";}s:8:"template";s:3583:"<!DOCTYPE html>
+a:2:{s:5:"files";a:6:{i:0;s:35:"D:\xampp\htdocs\DOMVC\core\View.php";i:1;s:40:"D:\xampp\htdocs\DOMVC\core\bbs\Topic.php";i:2;s:39:"D:\xampp\htdocs\DOMVC\core\bbs\Post.php";i:3;s:36:"D:\xampp\htdocs\DOMVC\core\Model.php";i:4;s:55:"D:\xampp\htdocs\DOMVC\core\bbs\template\Topic.temp.html";i:5;s:55:"D:\xampp\htdocs\DOMVC\core\bbs\template\login.temp.html";}s:8:"template";s:3677:"<!DOCTYPE html>
 <html><head><title><?PHP echo htmlspecialchars($topics['title'], ENT_COMPAT,"UTF-8", false);?> - <?PHP echo htmlspecialchars(SITE_NAME, ENT_COMPAT,"UTF-8", false);?></title><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="stylesheet" href="<?PHP echo htmlspecialchars($this->root, ENT_COMPAT,"UTF-8", false);?>style"><script src="<?PHP echo htmlspecialchars($this->root, ENT_COMPAT,"UTF-8", false);?>script" async="async"></script></head><body>
         <div id="wrapper">
             <?PHP if(isset($_SESSION['username']) === true){?><form method="post" action="">
@@ -6,7 +6,7 @@ a:2:{s:5:"files";a:6:{i:0;s:35:"D:\xampp\htdocs\DOMVC\core\View.php";i:1;s:40:"D
             <?PHP if(empty($_SESSION['level']) === false && $_SESSION['level'] == 'admin'){?><form method="post" action="<?PHP echo htmlspecialchars($this->root, ENT_COMPAT,"UTF-8", false);?>manage">
                 <input type="submit" name="manage" value="Manage users"></form><?PHP }?>
             <h1><?PHP echo htmlspecialchars($topics['title'], ENT_COMPAT,"UTF-8", false);?></h1>
-            <article><ol start="<?PHP echo htmlspecialchars(($index*$chunk)+1, ENT_COMPAT,"UTF-8", false);?>"><?PHP foreach($comments as $comment){?><li>
+            <article><ol start="<?PHP echo htmlspecialchars(($index*$chunk)+1, ENT_COMPAT,"UTF-8", false);?>"><?PHP foreach($comments as $comment){?><li id="c<?PHP echo htmlspecialchars($comment['id'], ENT_COMPAT,"UTF-8", false);?>">
                         <strong><?PHP echo htmlspecialchars($comment['username'], ENT_COMPAT,"UTF-8", false);?></strong>
                         <p><?PHP echo (nl2br(htmlspecialchars($comment['content'])));?></p>
                         <small><?PHP echo htmlspecialchars($datetime->setTimestamp($comment['timestamp'])->format('Y-m-d H:i:s'), ENT_COMPAT,"UTF-8", false);?></small>
@@ -21,7 +21,7 @@ a:2:{s:5:"files";a:6:{i:0;s:35:"D:\xampp\htdocs\DOMVC\core\View.php";i:1;s:40:"D
                         <dl><dt>Comment</dt>
                             <dd><textarea name="comment"></textarea></dd>
                         </dl></div>
-                    <?PHP if(empty($_SESSION['username']) === true){?><div>
+                    <?PHP if(empty($_SESSION['username']) === true){?><div class="login">
                         <dl><dt>Username</dt>
     <dd><input type="text" name="username" value=""></dd>
     <dt>Password</dt>

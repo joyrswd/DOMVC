@@ -26,6 +26,15 @@ function AJAX_CONNECTION(mode, sync)
 AJAX_CONNECTION.prototype.request = function (method, url, data, callback)
 {
     var that=this;
+    var senddata = '';
+    if (data) {
+        for (name in data) {
+            senddata += name+'='+encodeURI(data[name])+'&';
+        }
+        if (method === 'get') {
+            url += '?'+senddata;
+        }
+    }
     this.connection.open(method, url, this.async);
     this.connection.onreadystatechange = function() { 
         if (that.connection.readyState == 4) {
@@ -46,12 +55,6 @@ AJAX_CONNECTION.prototype.request = function (method, url, data, callback)
         }
     }
     this.connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    var senddata = '';
-    if (data) {
-        for (name in data) {
-            senddata += name+'='+encodeURI(data[name])+'&';
-        }
-    }
     this.connection.send(senddata);
 }
 

@@ -14,10 +14,11 @@ function insertAfter(refnode, newnode)
     refnode.parentNode.insertBefore(newnode, refnode.nextSibling);
 }
 
-function addEvent(obj, type, func)
+function addEvent(obj, type, func, capture)
 {
+    capture = (capture) ? true : false;
     if (obj.addEventListener) {
-        obj.addEventListener(type, func, false); 
+        obj.addEventListener(type, func, capture); 
     } else if(obj.attachEvent) { 
         obj.attachEvent('on' + type, func);
     }
@@ -36,6 +37,7 @@ function repeatMethod(interval, func)
 {
     var obj={id:null, interval:interval, step:0};
     obj.id = window.setInterval(function(){
+        obj.step++;
         if (func.call(obj) !== true) {
            window.clearInterval(obj.id);
         }

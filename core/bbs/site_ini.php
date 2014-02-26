@@ -4,6 +4,7 @@
 Definitions
 *****************************/
 define('SITE_NAME', 'BBS');
+define('LIST_ITEM_LIMIT', 10);
 
 /*****************************
 Site settings
@@ -23,6 +24,7 @@ Controller::$directions 	= array('\d*'=>'Index',
     'topic/.*'=>'Topic',
     'admin'=>'Admin',
     'manage'=>'Manage',
+    'search/.*'=>'Search',
     'script'=>'Script',
     'style'=>'Style');
 

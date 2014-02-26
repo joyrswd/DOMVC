@@ -4,22 +4,24 @@
         <title>:;SITE_NAME;:</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href=":;$this->root;:style">
     </head>
-    <body>
+    <body id="admin">
         <div id="wrapper">
             <article>
                 <h1>Welcome! You are the first visitor!</h1>
-                <p>You can get an administrator account. Please set the password.<br>
-            </article>
-            <section>
+                <p class='notice'>You can get an administrator account.<br>
+                    Please submit username and the password.</p>
                 <form name="admin" action="" method="post">
                     <ul php-if="empty($errors) === false" php-foreach="$errors as $message">
                         <li>:;$message;:</li>
                     </ul>
-                    <!-- #include file="login.temp.html" -->
+                    <div class="login">
+                        <!-- #include file="login.temp.html" -->
+                    </div>
                     <p><input type="submit" name="admin" value="Submit"></p>
                 </form>
-            </section>
+            </article>
         </div>
     </body>
 </html>

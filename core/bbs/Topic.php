@@ -1,7 +1,7 @@
 <?php
 Class Topic extends Post
 {
-    private $_chunk = 10;
+    private $_chunk = LIST_ITEM_LIMIT;
     function __construct()
     {
         $dirs = explode('/', $this->path);

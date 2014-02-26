@@ -13,12 +13,14 @@ Class Post extends Model
             $user = $sth->fetch();
 
             if (empty($user) === true) {
-               $this->createAccount($username, $password);
-            } elseif ($user['password'] === sha1($password)) {
+               $this->addAccount($username, $password);
+            } elseif ($user['status'] == 0) {
+               $this->_errors[] = 'The account is suspended.';                
+            } elseif ($user['password'] !== sha1($password)) {
+               $this->_errors[] = 'Existed username and wrong password.';
+            } else {
                 $_SESSION['username']   = $user['username'];
                 $_SESSION['level']      = $user['level'];
-            } else {
-               $this->_errors[] = 'Existed username and wrong password.';
             }
         }
     }
@@ -30,7 +32,7 @@ Class Post extends Model
        Controller::jumpto($this->path);
     }
 
-    private function createAccount($username, $password)
+    private function addAccount($username, $password)
     {
         $this->_db->beginTransaction();
         if ($this->path === 'admin') {
@@ -49,7 +51,7 @@ Class Post extends Model
         Controller::jumpto($url);
     }
 
-    protected function createTopic($topic, $comment, $username)
+    protected function addTopic($topic, $comment, $username)
     {
         if ($this->validateTopic($topic, $comment) === true) {
             $this->_db->beginTransaction();
