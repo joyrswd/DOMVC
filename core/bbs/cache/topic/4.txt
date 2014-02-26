@@ -1,5 +1,0 @@
-a:2:{s:8:"comments";a:1:{i:0;a:16:{s:2:"id";s:1:"6";i:0;s:1:"6";s:7:"content";s:15:"fds
-faffeafawf
-";i:1;s:15:"fds
-faffeafawf
-";s:8:"topic_id";s:1:"4";i:2;s:1:"4";s:8:"username";s:7:"joyrswd";i:3;s:7:"joyrswd";s:6:"status";s:1:"1";i:4;s:1:"1";s:5:"since";s:19:"2014-02-25 10:36:16";i:5;s:19:"2014-02-25 10:36:16";s:10:"lastupdate";s:19:"2014-02-25 10:36:16";i:6;s:19:"2014-02-25 10:36:16";s:9:"timestamp";s:10:"1393324576";i:7;s:10:"1393324576";}}s:6:"topics";a:12:{s:2:"id";s:1:"4";i:0;s:1:"4";s:8:"username";s:7:"joyrswd";i:1;s:7:"joyrswd";s:5:"title";s:9:"fdfawewfe";i:2;s:9:"fdfawewfe";s:6:"status";s:1:"1";i:3;s:1:"1";s:5:"since";s:19:"2014-02-25 10:36:16";i:4;s:19:"2014-02-25 10:36:16";s:10:"lastupdate";s:19:"2014-02-25 19:36:16";i:5;s:19:"2014-02-25 19:36:16";}}
