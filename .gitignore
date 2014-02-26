@@ -220,4 +220,5 @@ pip-log.txt
 /core/sample/bbs.sql
 /core/sample/cache/
 /core/sample/template/Manage.temp.html
+/core/bbs/cache/
 /core/bbs/bbs.sql
